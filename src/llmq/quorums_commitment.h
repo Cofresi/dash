@@ -103,6 +103,7 @@ public:
         obj.push_back(Pair("quorumVvecHash", quorumVvecHash.ToString()));
         obj.push_back(Pair("quorumSig", quorumSig.ToString()));
         obj.push_back(Pair("membersSig", membersSig.ToString()));
+        obj.push_back(Pair("commitmentHash", CLLMQUtils::BuildCommitmentHash(llmqType, quorumHash, validMembers, quorumPublicKey, quorumVvecHash).ToString()));
     }
 };
 
