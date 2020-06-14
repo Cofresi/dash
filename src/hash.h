@@ -38,7 +38,8 @@ private:
 public:
     static const size_t OUTPUT_SIZE = CSHA256::OUTPUT_SIZE;
 
-    void Finalize(unsigned char hash[OUTPUT_SIZE]) {
+    void Finalize(unsigned char hash[OUTPUT_SIZE]) const
+    {
         unsigned char buf[CSHA256::OUTPUT_SIZE];
         sha.Finalize(buf);
         sha.Reset().Write(buf, CSHA256::OUTPUT_SIZE).Finalize(hash);
