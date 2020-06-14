@@ -84,7 +84,7 @@ public:
         return hw.GetHash();
     }
 
-    uint256 GetCommitmentString() const
+    std::string GetCommitmentString() const
     {
         CHashWriter hw(SER_NETWORK, 0);
         hw << llmqType;
