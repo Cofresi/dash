@@ -84,17 +84,6 @@ public:
         return hw.GetHash();
     }
 
-     std::string GetCommitment() const
-    {
-        CHashWriter hw(SER_NETWORK, 0);
-        hw << llmqType;
-        hw << quorumHash;
-        hw << DYNBITSET(validMembers);
-        hw << quorumPublicKey;
-        hw << quorumVvecHash;
-        return hw.ToString();
-    }
-
 public:
     bool IsNull() const
     {
@@ -126,7 +115,7 @@ public:
         obj.push_back(Pair("quorumSig", quorumSig.ToString()));
         obj.push_back(Pair("membersSig", membersSig.ToString()));
         obj.push_back(Pair("commitmentHash", GetCommitmentHash().ToString()));
-        obj.push_back(Pair("commitment", GetCommitment().ToString()));
+        obj.push_back(Pair("signersString", signers.ToString()));
     }
 };
 
