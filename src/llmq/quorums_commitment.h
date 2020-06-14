@@ -73,9 +73,15 @@ public:
         READWRITE(membersSig);
     }
 
-    uint256 GetCommitmentHash() const
+    uint256 GetCommitmentHash(Consensus::LLMQType llmqType, const uint256& blockHash, const std::vector<bool>& validMembers, const CBLSPublicKey& pubKey, const uint256& vvecHash)
     {
-        return CLLMQUtils::BuildCommitmentHash(llmqType, quorumHash, validMembers, quorumPublicKey, quorumVvecHash);
+        CHashWriter hw(SER_NETWORK, 0);
+        hw << llmqType;
+        hw << blockHash;
+        hw << DYNBITSET(validMembers);
+        hw << pubKey;
+        hw << vvecHash;
+        return hw.GetHash();
     }
 
 public:
