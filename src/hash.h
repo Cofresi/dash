@@ -206,6 +206,11 @@ public:
         return result;
     }
 
+    std::string ToString() const
+    {
+        return GetHash().ToString();
+    }
+
     template<typename T>
     CHashWriter& operator<<(const T& obj) {
         // Serialize to this stream
