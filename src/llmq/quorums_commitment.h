@@ -115,7 +115,7 @@ public:
         obj.push_back(Pair("quorumSig", quorumSig.ToString()));
         obj.push_back(Pair("membersSig", membersSig.ToString()));
         obj.push_back(Pair("commitmentHash", GetCommitmentHash().ToString()));
-        obj.push_back(Pair("signersString", signers.ToString()));
+        obj.push_back(Pair("signersString", signers));
     }
 };
 
