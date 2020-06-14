@@ -84,16 +84,16 @@ public:
         return hw.GetHash();
     }
 
-        uint256 GetCommitment() const
-        {
-            CHashWriter hw(SER_NETWORK, 0);
-            hw << llmqType;
-            hw << quorumHash;
-            hw << DYNBITSET(validMembers);
-            hw << quorumPublicKey;
-            hw << quorumVvecHash;
-            return hw;
-        }
+     std::string GetCommitment() const
+    {
+        CHashWriter hw(SER_NETWORK, 0);
+        hw << llmqType;
+        hw << quorumHash;
+        hw << DYNBITSET(validMembers);
+        hw << quorumPublicKey;
+        hw << quorumVvecHash;
+        return hw.ToString();
+    }
 
 public:
     bool IsNull() const
