@@ -73,6 +73,11 @@ public:
         READWRITE(membersSig);
     }
 
+    uint256 GetCommitmentHash() const
+    {
+        return CLLMQUtils::BuildCommitmentHash(llmqType, quorumHash, validMembers, quorumPublicKey, quorumVvecHash);
+    }
+
 public:
     bool IsNull() const
     {
@@ -91,7 +96,6 @@ public:
 
     void ToJson(UniValue& obj) const
     {
-        uint256 commitmentHash = CLLMQUtils::BuildCommitmentHash(llmqType, quorumHash, validMembers, quorumPublicKey, quorumVvecHash);
         obj.setObject();
         obj.push_back(Pair("version", (int)nVersion));
         obj.push_back(Pair("llmqType", (int)llmqType));
@@ -104,7 +108,7 @@ public:
         obj.push_back(Pair("quorumVvecHash", quorumVvecHash.ToString()));
         obj.push_back(Pair("quorumSig", quorumSig.ToString()));
         obj.push_back(Pair("membersSig", membersSig.ToString()));
-        obj.push_back(Pair("commitmentHash", commitmentHash.ToString()));
+        obj.push_back(Pair("commitmentHash", GetCommitmentHash().ToString()));
     }
 };
 
