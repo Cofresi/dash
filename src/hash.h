@@ -200,7 +200,8 @@ public:
     }
 
     // invalidates the object
-    uint256 GetHash() {
+    uint256 GetHash() const
+    {
         uint256 result;
         ctx.Finalize((unsigned char*)&result);
         return result;
