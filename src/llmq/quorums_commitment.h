@@ -73,7 +73,7 @@ public:
         READWRITE(membersSig);
     }
 
-    uint256 GetCommitmentHash()
+    uint256 GetCommitmentHash() const
     {
         CHashWriter hw(SER_NETWORK, 0);
         hw << llmqType;
@@ -114,7 +114,7 @@ public:
         obj.push_back(Pair("quorumVvecHash", quorumVvecHash.ToString()));
         obj.push_back(Pair("quorumSig", quorumSig.ToString()));
         obj.push_back(Pair("membersSig", membersSig.ToString()));
-        obj.push_back(Pair("commitmentHash", CFinalCommitment::GetCommitmentHash().ToString()));
+        obj.push_back(Pair("commitmentHash", GetCommitmentHash().ToString()));
     }
 };
 
