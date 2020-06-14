@@ -200,8 +200,7 @@ public:
     }
 
     // invalidates the object
-    uint256 GetHash() const
-    {
+    uint256 GetHash() {
         uint256 result;
         ctx.Finalize((unsigned char*)&result);
         return result;
@@ -209,7 +208,9 @@ public:
 
     std::string ToString() const
     {
-        return GetHash().ToString();
+        uint256 result;
+        ctx.Finalize((unsigned char*)&result);
+        return result.ToString();
     }
 
     template<typename T>
