@@ -78,6 +78,7 @@ public:
         CHashWriter hw(SER_NETWORK, 0);
         hw << llmqType;
         hw << quorumHash;
+        hw << DYNBITSET(validMembers);
         hw << quorumPublicKey;
         hw << quorumVvecHash;
         return hw.GetHash();
