@@ -76,7 +76,6 @@ public:
     uint256 GetCommitmentHash() const
     {
         CHashWriter hw(SER_NETWORK, 0);
-        hw << llmqType;
         hw << quorumHash;
         hw << quorumPublicKey;
         hw << quorumVvecHash;
