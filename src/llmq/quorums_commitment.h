@@ -84,6 +84,13 @@ public:
         return hw.GetHash();
     }
 
+    uint256 GetCountHash() const
+    {
+        CHashWriter hw(SER_NETWORK, 0);
+        hw << COMPACTSIZE(CountValidMembers());
+        return hw.GetHash();
+    }
+
 public:
     bool IsNull() const
     {
@@ -110,7 +117,7 @@ public:
         obj.push_back(Pair("signersCount", CountSigners()));
         obj.push_back(Pair("signers", CLLMQUtils::ToHexStr(signers)));
         obj.push_back(Pair("validMembersCount", CountValidMembers()));
-        obj.push_back(Pair("validMembersCountHex", HexStr(COMPACTSIZE(count)));
+        obj.push_back(Pair("validMembersCountHash", GetCountHash()));
         obj.push_back(Pair("validMembers", CLLMQUtils::ToHexStr(validMembers)));
         obj.push_back(Pair("quorumPublicKey", quorumPublicKey.ToString()));
         obj.push_back(Pair("quorumVvecHash", quorumVvecHash.ToString()));
