@@ -77,6 +77,15 @@ public:
         }
         return HexStr(vBytes);
     }
+    static std::string ToBinaryStr(const std::vector<bool>& vBits)
+    {
+        std::vector<uint8_t> vBytes((vBits.size() + 7) / 8);
+        for (size_t i = 0; i < vBits.size(); i++) {
+            vBytes[i / 8] |= vBits[i] << (i % 8);
+        }
+        std::string str(vBytes->begin(), vBytes->end());
+        return str;
+    }
 };
 
 } // namespace llmq
