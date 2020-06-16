@@ -104,6 +104,32 @@ std::vector<unsigned char> ParseHex(const std::string& str)
     return ParseHex(str.c_str());
 }
 
+std::string ParseHexString(const char* psz)
+{
+    // convert hex dump to string
+    std::string str;
+    while (true)
+    {
+        while (isspace(*psz))
+            psz++;
+        signed char c = HexDigit(*psz++);
+        if (c == (signed char)-1)
+            break;
+        unsigned char n = (c << 4);
+        c = HexDigit(*psz++);
+        if (c == (signed char)-1)
+            break;
+        n |= c;
+        str.push_back(n);
+    }
+    return str;
+}
+
+std::string ParseHexString(const std::string& str)
+{
+    return ParseHexString(str.c_str());
+}
+
 void SplitHostPort(std::string in, int &portOut, std::string &hostOut) {
     size_t colon = in.find_last_of(':');
     // if a : is found, and it either follows a [...], or no other : is in the string, treat it as port separator
