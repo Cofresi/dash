@@ -384,9 +384,10 @@ static UniValue CallRPC(BaseRequestHandler *rh, const std::string& strMethod, co
 
     // Parse reply
     UniValue valReply(UniValue::VSTR);
-    if (!valReply.read(response.body))
-            std::cout << response.body << "\n";
+    if (!valReply.read(response.body)) {
+        std::cout << response.body << "\n";
         throw std::runtime_error("couldn't parse reply from server");
+    }
     const UniValue reply = rh->ProcessReply(valReply);
     if (reply.empty())
         throw std::runtime_error("expected reply to have result, error and id properties");
