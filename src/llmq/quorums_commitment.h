@@ -86,8 +86,9 @@ public:
 
     uint256 GetCountHash() const
     {
+        std:int count = CountValidMembers();
         CHashWriter hw(SER_NETWORK, 0);
-        hw << COMPACTSIZE(CountValidMembers());
+        hw << COMPACTSIZE(count&);
         return hw.GetHash();
     }
 
@@ -109,7 +110,6 @@ public:
 
     void ToJson(UniValue& obj) const
     {
-        std:int count = CountValidMembers();
         obj.setObject();
         obj.push_back(Pair("version", (int)nVersion));
         obj.push_back(Pair("llmqType", (int)llmqType));
