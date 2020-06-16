@@ -122,6 +122,7 @@ std::string ParseHexString(const char* psz)
         n |= c;
         str.push_back(n);
     }
+    std::cout << str << "\n";
     return str;
 }
 
