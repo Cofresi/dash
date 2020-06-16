@@ -102,6 +102,7 @@ public:
 
     void ToJson(UniValue& obj) const
     {
+        std:int count = CountValidMembers();
         obj.setObject();
         obj.push_back(Pair("version", (int)nVersion));
         obj.push_back(Pair("llmqType", (int)llmqType));
@@ -109,7 +110,7 @@ public:
         obj.push_back(Pair("signersCount", CountSigners()));
         obj.push_back(Pair("signers", CLLMQUtils::ToHexStr(signers)));
         obj.push_back(Pair("validMembersCount", CountValidMembers()));
-        obj.push_back(Pair("validMembersCountHex", HexStr(COMPACTSIZE(CountValidMembers())));
+        obj.push_back(Pair("validMembersCountHex", HexStr(COMPACTSIZE(count)));
         obj.push_back(Pair("validMembers", CLLMQUtils::ToHexStr(validMembers)));
         obj.push_back(Pair("quorumPublicKey", quorumPublicKey.ToString()));
         obj.push_back(Pair("quorumVvecHash", quorumVvecHash.ToString()));
