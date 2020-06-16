@@ -109,6 +109,7 @@ public:
         obj.push_back(Pair("signersCount", CountSigners()));
         obj.push_back(Pair("signers", CLLMQUtils::ToHexStr(signers)));
         obj.push_back(Pair("validMembersCount", CountValidMembers()));
+        obj.push_back(Pair("validMembersCountHex", CLLMQUtils::ToHexStr(CCompactSize(CountValidMembers()))));
         obj.push_back(Pair("validMembers", CLLMQUtils::ToHexStr(validMembers)));
         obj.push_back(Pair("quorumPublicKey", quorumPublicKey.ToString()));
         obj.push_back(Pair("quorumVvecHash", quorumVvecHash.ToString()));
