@@ -83,7 +83,20 @@ public:
         for (size_t i = 0; i < vBits.size(); i++) {
             vBytes[i / 8] |= vBits[i] << (i % 8);
         }
-        std::string str(vBytes.begin().ToString(), vBytes.end().ToString());
+
+        std::ostringstream oss;
+
+        if (!vBytes.empty())
+        {
+          // Convert all but the last element to avoid a trailing ","
+          std::copy(vBytes.begin(), vBytes.end()-1,
+              std::ostream_iterator<int>(oss, ","));
+
+          // Now add the last element with no delimiter
+          oss << vBytes.back();
+        }
+        std::string str;
+        str << oss.str() << std::endl;
         return str;
     }
 };
