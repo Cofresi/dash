@@ -228,7 +228,17 @@ bool CalcCbTxMerkleRootQuorums(const CBlock& block, const CBlockIndex* pindexPre
             qcHashesVec.emplace_back(h);
         }
     }
+    for(int i=0; i < qcHashesVec.size(); i++){
+        std::cout << "unsorted" << "\n";
+        std::cout << qcHashesVec[i].ToString() << "\n";
+    }
+
     std::sort(qcHashesVec.begin(), qcHashesVec.end());
+
+    for(int i=0; i < qcHashesVec.size(); i++){
+        std::cout << "sorted" << "\n";
+        std::cout << qcHashesVec[i].ToString() << "\n";
+    }
 
     int64_t nTime4 = GetTimeMicros(); nTimeLoop += nTime4 - nTime3;
     LogPrint(BCLog::BENCHMARK, "            - Loop: %.2fms [%.2fs]\n", 0.001 * (nTime4 - nTime3), nTimeLoop * 0.000001);
