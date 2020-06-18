@@ -285,17 +285,15 @@ bool CalcCbTxMerkleRootQuorums(const CBlock& block, const CBlockIndex* pindexPre
         LogPrintf("sorted fixed hash -- %s\n", newHashesVec[i].ToString());
     }
 
-    uint256 merkleRootFixed = ComputeMerkleRoot(newHashesVec, &mutated);
-
     int64_t nTime4 = GetTimeMicros(); nTimeLoop += nTime4 - nTime3;
     LogPrint(BCLog::BENCHMARK, "            - Loop: %.2fms [%.2fs]\n", 0.001 * (nTime4 - nTime3), nTimeLoop * 0.000001);
 
     bool mutated = false;
     merkleRootRet = ComputeMerkleRoot(qcHashesVec, &mutated);
 
-    uint256 merkleRootFixed = ComputeMerkleRoot(newHashesVec, &mutated);
+    uint256 merkleRootFixed = ComputeMerkleRoot(newHashesVec, false);
 
-    LogPrintf("fixed merkleRootQuorums=%s\n", merkleRootFixed.ToString();
+    LogPrintf("fixed merkleRootQuorums=%s\n", merkleRootFixed.ToString());
 
     int64_t nTime5 = GetTimeMicros(); nTimeMerkle += nTime5 - nTime4;
     LogPrint(BCLog::BENCHMARK, "            - ComputeMerkleRoot: %.2fms [%.2fs]\n", 0.001 * (nTime5 - nTime4), nTimeMerkle * 0.000001);
