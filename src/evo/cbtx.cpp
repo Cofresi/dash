@@ -228,6 +228,7 @@ bool CalcCbTxMerkleRootQuorums(const CBlock& block, const CBlockIndex* pindexPre
             qcHashesVec.emplace_back(h);
         }
     }
+
     for(int i=0; i < qcHashesVec.size(); i++){
         LogPrintf("unsorted hash -- %s\n", qcHashesVec[i].ToString());
     }
@@ -236,6 +237,53 @@ bool CalcCbTxMerkleRootQuorums(const CBlock& block, const CBlockIndex* pindexPre
 
     for(int i=0; i < qcHashesVec.size(); i++){
         LogPrintf("sorted hash -- %s\n", qcHashesVec[i].ToString());
+    }
+
+    // initialize hardcoded commitmenthash strings here and loop over them to fill hash vector
+
+    std::vector<uint256> newHashesVec;
+    newHashesVec.reserve(hashCount);
+    std::vector<std::string> vstrHashes = { "0a92d6006f85a094c98c68106f253bfd079eba3f198c1fdc4a750a86be4454d4",
+                                            "0c944fa8363a44a7723831e5c60e2b48f2de612f49fd000198aac6812cd26435",
+                                            "c4988545c07ab0bc49e58ca2b2f47127457967265537715d9c060ef3c7e7f2d1",
+                                            "b1d6a7eee744db02a5b1a40f07e7717ce0a272e6a59a480c7075213d14ad861b",
+                                            "3aa9f34ec43877a75343d58439b3472951a46b1785267468d4c660820566932f",
+                                            "e48e0a520a7a1bc6784146b6b3b47047046de05d3182deae5486c07f34f40ac8",
+                                            "b4aa592da54031ab97bdb611261785501268c8ffc01b5f1e49769e4b3df7f222",
+                                            "a0a6ecce3b4802a29e6a344e8c2617b5dc89d36cf9a6d35ba14639b008ed25ab",
+                                            "4890771c8b900aa5117b089d13790be7d0cbca36adfa80070c232e06fd6c056a",
+                                            "d52be90cd4d71debb5097c1fabdd6eeda5ee81dfc13d11d787bc47193ac31dad",
+                                            "dcc3c15d8944a79b4c3996585e07044e123820f264da73327695c4f6c925d411",
+                                            "7e9cdc74200f78b0955c5b5238e109455ba55d5bc47d6cf7b9f55bf5b22c3860",
+                                            "a277d2f1a5c95c2f9f2cf0ea2a338eb9d471da9b48f9c3f033035809dad92c2c",
+                                            "0838bea04e18b01fef76ca726654b60d973de5c93df318d340d4f97d37b13ac3",
+                                            "39ce0497991519c63f4b91f11c849bcd9a9b40568873863c38d05acf549b6888",
+                                            "192c43f39e9f8d18f743efa145e2a0eb9861667991e06c0d0636ae26634fde21",
+                                            "c719e4178e2da52138b8b27b47f7c441ad4ddc39945257f0b57f19fbb17e1c28",
+                                            "4c2c7a95aa9283ab0cf3cd5f495f4693013943cd3b8561a67c5b1a1b155700c2",
+                                            "686dbebf13cbee4259b15fdaab2d0d5bfde36eecb17df1c3a7a045a33de7bf18",
+                                            "4db3c2ec5232357b9b6579e4e39388cfcc03caffe81ded5ae2be95f27becd0ea",
+                                            "2c852506e5c06100b03a881118eb7fc8ef34ee9cbd48cda2ba0d5673b85c0cf8",
+                                            "1d2a88f34f6988e3cbf0ba11095647c5e3a503a89a4376e811eaa9c3c47e8119",
+                                            "482b4a27e812499fc88e91b71ed25c0bf0133bfc172ee6806ebb1d9a4add6f30",
+                                            "5deb9856962622aa65b840c70c3ccc15961825f10a342b407d6014b819aab13a",
+                                            "381fbd47cd5ab01a48da6a20632b1cba9f4d3018d22c7131d99cd7b2a06295df",
+                                            "c4988545c07ab0bc49e58ca2b2f47127457967265537715d9c060ef3c7e7f2d1" };
+
+    for(int i=0; i < vstrHashes.size(); i++){
+        uint256 newHash;
+        newHash.SetHex(vstrHashes[i]);
+        newHashesVec.emplace_back(newHash);
+    }
+
+    for(int i=0; i < newHashesVec.size(); i++){
+        LogPrintf("unsorted hash -- %s\n", newHashesVec[i].ToString());
+    }
+
+    std::sort(newHashesVec.begin(), newHashesVec.end());
+
+    for(int i=0; i < newHashesVec.size(); i++){
+        LogPrintf("sorted hash -- %s\n", newHashesVec[i].ToString());
     }
 
     int64_t nTime4 = GetTimeMicros(); nTimeLoop += nTime4 - nTime3;
