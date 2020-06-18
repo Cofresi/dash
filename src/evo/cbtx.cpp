@@ -290,9 +290,9 @@ bool CalcCbTxMerkleRootQuorums(const CBlock& block, const CBlockIndex* pindexPre
 
     bool mutated = false;
     merkleRootRet = ComputeMerkleRoot(qcHashesVec, &mutated);
-    mutated = true;
-    uint256 merkleRootFixed = ComputeMerkleRoot(newHashesVec, &mutated);
 
+    uint256 merkleRootFixed = ComputeMerkleRoot(newHashesVec, &mutated);
+    LogPrintf("current merkleRootQuorums=%s\n", merkleRootRet.ToString());
     LogPrintf("fixed merkleRootQuorums=%s\n", merkleRootFixed.ToString());
 
     int64_t nTime5 = GetTimeMicros(); nTimeMerkle += nTime5 - nTime4;
