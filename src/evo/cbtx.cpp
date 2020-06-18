@@ -267,8 +267,7 @@ bool CalcCbTxMerkleRootQuorums(const CBlock& block, const CBlockIndex* pindexPre
                                             "1d2a88f34f6988e3cbf0ba11095647c5e3a503a89a4376e811eaa9c3c47e8119",
                                             "482b4a27e812499fc88e91b71ed25c0bf0133bfc172ee6806ebb1d9a4add6f30",
                                             "5deb9856962622aa65b840c70c3ccc15961825f10a342b407d6014b819aab13a",
-                                            "381fbd47cd5ab01a48da6a20632b1cba9f4d3018d22c7131d99cd7b2a06295df",
-                                            "c4988545c07ab0bc49e58ca2b2f47127457967265537715d9c060ef3c7e7f2d1" };
+                                            "381fbd47cd5ab01a48da6a20632b1cba9f4d3018d22c7131d99cd7b2a06295df"};
 
     for(int i=0; i < vstrHashes.size(); i++){
         uint256 newHash;
@@ -286,11 +285,17 @@ bool CalcCbTxMerkleRootQuorums(const CBlock& block, const CBlockIndex* pindexPre
         LogPrintf("sorted fixed hash -- %s\n", newHashesVec[i].ToString());
     }
 
+    uint256 merkleRootFixed = ComputeMerkleRoot(newHashesVec, &mutated);
+
     int64_t nTime4 = GetTimeMicros(); nTimeLoop += nTime4 - nTime3;
     LogPrint(BCLog::BENCHMARK, "            - Loop: %.2fms [%.2fs]\n", 0.001 * (nTime4 - nTime3), nTimeLoop * 0.000001);
 
     bool mutated = false;
     merkleRootRet = ComputeMerkleRoot(qcHashesVec, &mutated);
+
+    uint256 merkleRootFixed = ComputeMerkleRoot(newHashesVec, &mutated);
+
+    LogPrintf("fixed merkleRootQuorums=%s\n", merkleRootFixed.ToString();
 
     int64_t nTime5 = GetTimeMicros(); nTimeMerkle += nTime5 - nTime4;
     LogPrint(BCLog::BENCHMARK, "            - ComputeMerkleRoot: %.2fms [%.2fs]\n", 0.001 * (nTime5 - nTime4), nTimeMerkle * 0.000001);
