@@ -290,7 +290,7 @@ bool CalcCbTxMerkleRootQuorums(const CBlock& block, const CBlockIndex* pindexPre
 
     bool mutated = false;
     merkleRootRet = ComputeMerkleRoot(qcHashesVec, &mutated);
-    bool mutated = true;
+    mutated = true;
     uint256 merkleRootFixed = ComputeMerkleRoot(newHashesVec, &mutated);
 
     LogPrintf("fixed merkleRootQuorums=%s\n", merkleRootFixed.ToString());
