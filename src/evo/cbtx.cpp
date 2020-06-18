@@ -277,13 +277,13 @@ bool CalcCbTxMerkleRootQuorums(const CBlock& block, const CBlockIndex* pindexPre
     }
 
     for(int i=0; i < newHashesVec.size(); i++){
-        LogPrintf("unsorted hash -- %s\n", newHashesVec[i].ToString());
+        LogPrintf("unsorted fixed hash -- %s\n", newHashesVec[i].ToString());
     }
 
     std::sort(newHashesVec.begin(), newHashesVec.end());
 
     for(int i=0; i < newHashesVec.size(); i++){
-        LogPrintf("sorted hash -- %s\n", newHashesVec[i].ToString());
+        LogPrintf("sorted fixed hash -- %s\n", newHashesVec[i].ToString());
     }
 
     int64_t nTime4 = GetTimeMicros(); nTimeLoop += nTime4 - nTime3;
