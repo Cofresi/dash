@@ -84,6 +84,21 @@ public:
         return hw.GetHash();
     }
 
+    uint256 GetHash() const
+    {
+        CHashWriter hw(SER_NETWORK, 0);
+        hw << nVersion;
+        hw << llmqType;
+        hw << quorumHash;
+        hw << DYNBITSET(signers);
+        hw << DYNBITSET(validMembers);
+        hw << quorumPublicKey;
+        hw << quorumVvecHash;
+        hw << quorumSig;
+        hw << membersSig;
+        return hw.GetHash();
+    }
+
 public:
     bool IsNull() const
     {
@@ -115,6 +130,7 @@ public:
         obj.push_back(Pair("quorumSig", quorumSig.ToString()));
         obj.push_back(Pair("membersSig", membersSig.ToString()));
         obj.push_back(Pair("commitmentHash", GetCommitmentHash().ToString()));
+        obj.push_back(Pair("hash", GetHash().ToString()));
     }
 };
 
