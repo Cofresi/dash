@@ -14,6 +14,7 @@
 #include <llmq/quorums_dkgsession.h>
 #include <llmq/quorums_signing.h>
 #include <llmq/quorums_signing_shares.h>
+#include <llmq/quorums_utils.h>
 
 void quorum_list_help()
 {
