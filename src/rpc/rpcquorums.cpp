@@ -88,7 +88,7 @@ UniValue BuildQuorumInfo(const llmq::CQuorumCPtr& quorum, bool includeMembers, b
 
 
     std::vector<CDeterministicMNCPtr> dmnMembers;
-    dmnMembers = CLLMQUtils::GetAllQuorumMembers(quorum->params.type, quorum->pindexQuorum);
+    dmnMembers = CLLMQUtils::GetAllQuorumMembers((Consensus::LLMQType) quorum->params.type, quorum->pindexQuorum);
 
     ret.push_back(Pair("height", quorum->pindexQuorum->nHeight));
     ret.push_back(Pair("type", quorum->params.name));
