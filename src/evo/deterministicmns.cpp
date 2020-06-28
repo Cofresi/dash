@@ -254,6 +254,12 @@ std::vector<CDeterministicMNCPtr> CDeterministicMNList::CalculateQuorum(size_t m
 {
     auto scores = CalculateScores(modifier);
 
+    LogPrintf("mns unsorted\n");
+    // print all unsorted scores and mns
+    for (size_t i = 0; i < scores.size(); i++) {
+        LogPrintf("mn -- %s\n", scores[i].second->proTxHash.ToString());
+    }
+
     // sort is descending order
     std::sort(scores.rbegin(), scores.rend(), [](const std::pair<arith_uint256, CDeterministicMNCPtr>& a, std::pair<arith_uint256, CDeterministicMNCPtr>& b) {
         if (a.first == b.first) {
@@ -263,7 +269,7 @@ std::vector<CDeterministicMNCPtr> CDeterministicMNList::CalculateQuorum(size_t m
         return a.first < b.first;
     });
 
-    LogPrintf("scores sorted\n");
+    LogPrintf("scores & mns sorted\n");
     // print all sorted scores and mns
     for (size_t i = 0; i < scores.size(); i++) {
         LogPrintf("score -- %s\n", scores[i].first.ToString());
