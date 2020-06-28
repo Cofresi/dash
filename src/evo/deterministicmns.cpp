@@ -263,13 +263,14 @@ std::vector<CDeterministicMNCPtr> CDeterministicMNList::CalculateQuorum(size_t m
         return a.first < b.first;
     });
 
-    // print all sorted scores
+    LogPrintf("scores sorted";
+    // print all sorted scores and mns
     for (size_t i = 0; i < scores.size(); i++) {
-        result[i] = std::move(scores[i].second);
         LogPrintf("score -- %s\n", scores[i].first.ToString());
         LogPrintf("mn -- %s\n", scores[i].second->proTxHash.ToString());
     }
 
+    LogPrintf("score hashes";
     // take top maxSize entries and return it
     std::vector<CDeterministicMNCPtr> result;
     result.resize(std::min(maxSize, scores.size()));
