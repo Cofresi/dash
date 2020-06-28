@@ -101,17 +101,6 @@ void CQuorumBlockProcessor::ProcessMessage(CNode* pfrom, const std::string& strC
 
         auto members = CLLMQUtils::GetAllQuorumMembers(type, pquorumIndex);
 
-        uint256 quorumHashDebug;
-        std::string strHex = "0000000000c1c305a88441ce9a27a51fbad94555e50aaf6b61f84866bf56b160";
-        quorumHashDebug.SetHex(strHex);
-        const CBlockIndex* pquorumIndexDebug;
-        pquorumIndexDebug = mapBlockIndex[quorumHashDebug];
-        Consensus::LLMQType llmqType = Consensus::LLMQ_50_60;
-        auto membersDebug = CLLMQUtils::GetAllQuorumMembers(llmqType, pquorumIndexDebug);
-        for (auto& dmn : membersDebug) {
-            LogPrintf("member -- %s\n", dmn->proTxHash.ToString());
-        }
-
         if (!qc.Verify(members, true)) {
             LOCK(cs_main);
             LogPrint(BCLog::LLMQ, "CQuorumBlockProcessor::%s -- commitment for quorum %s:%d is not valid, peer=%d\n", __func__,
@@ -124,6 +113,17 @@ void CQuorumBlockProcessor::ProcessMessage(CNode* pfrom, const std::string& strC
                   qc.quorumHash.ToString(), qc.llmqType, qc.CountValidMembers(), qc.CountSigners(), pfrom->GetId());
 
         AddMinableCommitment(qc);
+    }
+
+    uint256 quorumHashDebug;
+    std::string strHex = "0000000000c1c305a88441ce9a27a51fbad94555e50aaf6b61f84866bf56b160";
+    quorumHashDebug.SetHex(strHex);
+    const CBlockIndex* pquorumIndexDebug;
+    pquorumIndexDebug = mapBlockIndex[quorumHashDebug];
+    Consensus::LLMQType llmqType = Consensus::LLMQ_50_60;
+    auto membersDebug = CLLMQUtils::GetAllQuorumMembers(llmqType, pquorumIndexDebug);
+    for (auto& dmn : membersDebug) {
+        LogPrintf("member -- %s\n", dmn->proTxHash.ToString());
     }
 }
 
