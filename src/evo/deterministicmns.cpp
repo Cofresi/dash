@@ -263,6 +263,13 @@ std::vector<CDeterministicMNCPtr> CDeterministicMNList::CalculateQuorum(size_t m
         return a.first < b.first;
     });
 
+    // print all sorted scores
+    for (size_t i = 0; i < scores.size(); i++) {
+        result[i] = std::move(scores[i].second);
+        LogPrintf("score -- %s\n", scores[i].first.ToString());
+        LogPrintf("mn -- %s\n", scores[i].second->proTxHash.ToString());
+    }
+
     // take top maxSize entries and return it
     std::vector<CDeterministicMNCPtr> result;
     result.resize(std::min(maxSize, scores.size()));
@@ -292,6 +299,7 @@ std::vector<std::pair<arith_uint256, CDeterministicMNCPtr>> CDeterministicMNList
         sha256.Write(dmn->pdmnState->confirmedHashWithProRegTxHash.begin(), dmn->pdmnState->confirmedHashWithProRegTxHash.size());
         sha256.Write(modifier.begin(), modifier.size());
         sha256.Finalize(h.begin());
+        LogPrintf("confirmedHashWithProRegTxHash -- %s\n", dmn->pdmnState->confirmedHashWithProRegTxHash.ToString());
         LogPrintf("rawscore -- %s\n", h.ToString());
         LogPrintf("mn -- %s\n", dmn->proTxHash.ToString());
         scores.emplace_back(UintToArith256(h), dmn);
