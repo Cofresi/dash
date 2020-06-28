@@ -14,7 +14,6 @@
 #include <llmq/quorums_dkgsession.h>
 #include <llmq/quorums_signing.h>
 #include <llmq/quorums_signing_shares.h>
-#include <llmq/quorums_utils.h>
 
 void quorum_list_help()
 {
@@ -85,10 +84,6 @@ void quorum_info_help()
 UniValue BuildQuorumInfo(const llmq::CQuorumCPtr& quorum, bool includeMembers, bool includeSkShare)
 {
     UniValue ret(UniValue::VOBJ);
-
-
-    std::vector<CDeterministicMNCPtr> dmnMembers;
-    dmnMembers = CLLMQUtils::GetAllQuorumMembers((Consensus::LLMQType) quorum->params.type, quorum->pindexQuorum);
 
     ret.push_back(Pair("height", quorum->pindexQuorum->nHeight));
     ret.push_back(Pair("type", quorum->params.name));

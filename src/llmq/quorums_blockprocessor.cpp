@@ -101,6 +101,15 @@ void CQuorumBlockProcessor::ProcessMessage(CNode* pfrom, const std::string& strC
 
         auto members = CLLMQUtils::GetAllQuorumMembers(type, pquorumIndex);
 
+        uint256 quorumHashDebug;
+        std::string strHex = "0000000000c1c305a88441ce9a27a51fbad94555e50aaf6b61f84866bf56b160";
+        quorumHashDebug.SetHex(strHex);
+        pquorumIndexDebug = mapBlockIndex[quorumHashDebug];
+        auto membersDebug = CLLMQUtils::GetAllQuorumMembers(1, pquorumIndexDebug);
+        for (auto& dmn : membersDebug) {
+            LogPrintf("member -- %s\n", dmn->proTxHash.ToString());
+        }
+
         if (!qc.Verify(members, true)) {
             LOCK(cs_main);
             LogPrint(BCLog::LLMQ, "CQuorumBlockProcessor::%s -- commitment for quorum %s:%d is not valid, peer=%d\n", __func__,
