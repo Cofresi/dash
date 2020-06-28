@@ -297,6 +297,7 @@ std::vector<std::pair<arith_uint256, CDeterministicMNCPtr>> CDeterministicMNList
         if (dmn->pdmnState->confirmedHash.IsNull()) {
             // we only take confirmed MNs into account to avoid hash grinding on the ProRegTxHash to sneak MNs into a
             // future quorums
+            LogPrintf("confirmedHash.IsNull() -- %s\n", dmn->pdmnState->confirmedHash.ToString());
             return;
         }
         // calculate sha256(sha256(proTxHash, confirmedHash), modifier) per MN
