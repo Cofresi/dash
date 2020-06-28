@@ -106,7 +106,8 @@ void CQuorumBlockProcessor::ProcessMessage(CNode* pfrom, const std::string& strC
         quorumHashDebug.SetHex(strHex);
         const CBlockIndex* pquorumIndexDebug;
         pquorumIndexDebug = mapBlockIndex[quorumHashDebug];
-        auto membersDebug = CLLMQUtils::GetAllQuorumMembers(1, pquorumIndexDebug);
+        Consensus::LLMQType llmqType = std::get<1>(k);
+        auto membersDebug = CLLMQUtils::GetAllQuorumMembers(llmqType, pquorumIndexDebug);
         for (auto& dmn : membersDebug) {
             LogPrintf("member -- %s\n", dmn->proTxHash.ToString());
         }
