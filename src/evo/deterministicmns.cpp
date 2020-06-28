@@ -254,6 +254,7 @@ std::vector<CDeterministicMNCPtr> CDeterministicMNList::CalculateQuorum(size_t m
 {
     auto scores = CalculateScores(modifier);
 
+    LogPrintf("mns count %d\n", scores.size());
     LogPrintf("mns unsorted\n");
     // print all unsorted scores and mns
     for (size_t i = 0; i < scores.size(); i++) {
