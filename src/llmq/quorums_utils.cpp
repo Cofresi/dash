@@ -19,6 +19,7 @@ std::vector<CDeterministicMNCPtr> CLLMQUtils::GetAllQuorumMembers(Consensus::LLM
 {
     auto& params = Params().GetConsensus().llmqs.at(llmqType);
     auto allMns = deterministicMNManager->GetListForBlock(pindexQuorum);
+    LogPrintf("blockHash -- %s\n", pindexQuorum->GetBlockHash().ToString());
     auto modifier = ::SerializeHash(std::make_pair(llmqType, pindexQuorum->GetBlockHash()));
     LogPrintf("modifier -- %s\n", modifier.ToString());
     return allMns.CalculateQuorum(params.size, modifier);

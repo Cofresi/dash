@@ -102,7 +102,7 @@ void CQuorumBlockProcessor::ProcessMessage(CNode* pfrom, const std::string& strC
         auto members = CLLMQUtils::GetAllQuorumMembers(type, pquorumIndex);
 
         uint256 quorumHashDebug;
-        std::string strHex = "0000000000c1c305a88441ce9a27a51fbad94555e50aaf6b61f84866bf56b160";
+        std::string strHex = "60b156bf6648f8616baf0ae55545d9ba1fa5279ace4184a805c3c10000000000";
         quorumHashDebug.SetHex(strHex);
         const CBlockIndex* pquorumIndexDebug;
         pquorumIndexDebug = mapBlockIndex[quorumHashDebug];
