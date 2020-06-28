@@ -292,7 +292,7 @@ std::vector<std::pair<arith_uint256, CDeterministicMNCPtr>> CDeterministicMNList
         sha256.Write(dmn->pdmnState->confirmedHashWithProRegTxHash.begin(), dmn->pdmnState->confirmedHashWithProRegTxHash.size());
         sha256.Write(modifier.begin(), modifier.size());
         sha256.Finalize(h.begin());
-
+        LogPrintf("rawscore -- %s\n", h.ToString());
         scores.emplace_back(UintToArith256(h), dmn);
     });
 
