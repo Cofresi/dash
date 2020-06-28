@@ -268,6 +268,7 @@ std::vector<CDeterministicMNCPtr> CDeterministicMNList::CalculateQuorum(size_t m
     result.resize(std::min(maxSize, scores.size()));
     for (size_t i = 0; i < result.size(); i++) {
         result[i] = std::move(scores[i].second);
+        LogPrintf("score -- %s\n", scores[i].first.ToString());
     }
     return result;
 }
