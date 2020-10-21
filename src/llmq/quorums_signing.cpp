@@ -825,6 +825,11 @@ bool CSigningManager::AsyncSignIfMember(Consensus::LLMQType llmqType, const uint
     // But at least it shouldn't be possible to get conflicting recovered signatures
     // TODO fix this by re-signing when the next block arrives, but only when that block results in a change of the quorum list and no recovered signature has been created in the mean time
     CQuorumCPtr quorum = SelectQuorumForSigning(llmqType, id);
+    static const std::string CLSIG_REQUESTID_PREFIX = "clsig";
+    uint256 requestIdFixed = ::SerializeHash(std::make_pair(CLSIG_REQUESTID_PREFIX, 84202));
+    CQuorumCPtr quorumFixed = SelectQuorumForSigning(llmqType, requestIdFixed, 84202);
+    LogPrintf("chosen fixed quorum pubKey -- %s\n", quorumFixed->qc.quorumPublicKey.ToString());
+
     if (!quorum) {
         LogPrint(BCLog::LLMQ, "CSigningManager::%s -- failed to select quorum. id=%s, msgHash=%s\n", __func__, id.ToString(), msgHash.ToString());
         return false;
@@ -925,6 +930,48 @@ CQuorumCPtr CSigningManager::SelectQuorumForSigning(Consensus::LLMQType llmqType
         scores.emplace_back(h.GetHash(), i);
     }
     std::sort(scores.begin(), scores.end());
+    return quorums[scores.front().second];
+}
+
+CQuorumCPtr CSigningManager::SelectQuorumForSigningFixed(Consensus::LLMQType llmqType, const uint256& selectionHash, int signHeight, int signOffset)
+{
+    auto& llmqParams = Params().GetConsensus().llmqs.at(llmqType);
+    size_t poolSize = (size_t)llmqParams.signingActiveQuorumCount;
+
+    CBlockIndex* pindexStart;
+    {
+        LOCK(cs_main);
+        if (signHeight == -1) {
+            signHeight = chainActive.Height();
+        }
+        int startBlockHeight = signHeight - signOffset;
+        if (startBlockHeight > chainActive.Height()) {
+            return {};
+        }
+        pindexStart = chainActive[startBlockHeight];
+    }
+
+    auto quorums =  quorumManager->ScanQuorums(llmqType, pindexStart, poolSize);
+    if (quorums.empty()) {
+        return nullptr;
+    }
+
+    std::vector<std::pair<uint256, size_t>> scores;
+    scores.reserve(quorums.size());
+    for (size_t i = 0; i < quorums.size(); i++) {
+        CHashWriter h(SER_NETWORK, 0);
+        h << llmqType;
+        h << quorums[i]->qc.quorumHash;
+        h << selectionHash;
+        scores.emplace_back(h.GetHash(), i);
+    }
+    for (size_t i = 0; i < scores.size(); i++) {
+        LogPrintf("unsorted score -- %s\n", scores[i].first.ToString());
+    }
+    std::sort(scores.begin(), scores.end());
+    for (size_t i = 0; i < scores.size(); i++) {
+        LogPrintf("sorted score -- %s\n", scores[i].first.ToString());
+    }
     return quorums[scores.front().second];
 }
 
