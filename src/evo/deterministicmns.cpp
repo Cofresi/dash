@@ -254,13 +254,13 @@ std::vector<CDeterministicMNCPtr> CDeterministicMNList::CalculateQuorum(size_t m
 {
     auto scores = CalculateScores(modifier);
 
-    LogPrintf("GetAllMNsCount %d\n", GetAllMNsCount());
-    LogPrintf("mns count %d\n", scores.size());
-    LogPrintf("mns unsorted\n");
+    //LogPrintf("GetAllMNsCount %d\n", GetAllMNsCount());
+    //LogPrintf("mns count %d\n", scores.size());
+    //LogPrintf("mns unsorted\n");
     // print all unsorted scores and mns
-    for (size_t i = 0; i < scores.size(); i++) {
-        LogPrintf("mn -- %s\n", scores[i].second->proTxHash.ToString());
-    }
+    //for (size_t i = 0; i < scores.size(); i++) {
+    //    LogPrintf("mn -- %s\n", scores[i].second->proTxHash.ToString());
+    //}
 
     // sort is descending order
     std::sort(scores.rbegin(), scores.rend(), [](const std::pair<arith_uint256, CDeterministicMNCPtr>& a, std::pair<arith_uint256, CDeterministicMNCPtr>& b) {
