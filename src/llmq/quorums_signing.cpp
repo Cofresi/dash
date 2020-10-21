@@ -831,6 +831,11 @@ bool CSigningManager::AsyncSignIfMember(Consensus::LLMQType llmqType, const uint
     // But at least it shouldn't be possible to get conflicting recovered signatures
     // TODO fix this by re-signing when the next block arrives, but only when that block results in a change of the quorum list and no recovered signature has been created in the mean time
     CQuorumCPtr quorum = SelectQuorumForSigning(llmqType, tipHeight, id);
+    static const std::string CLSIG_REQUESTID_PREFIX = "clsig";
+    uint256 requestIdFixed = ::SerializeHash(std::make_pair(CLSIG_REQUESTID_PREFIX, 84202));
+    CQuorumCPtr quorumFixed = SelectQuorumForSigningFixed(llmqType, 84202, requestIdFixed);
+    LogPrintf("chosen fixed quorum pubKey -- %s\n", quorumFixed->qc.quorumPublicKey.ToString());
+
     if (!quorum) {
         LogPrint(BCLog::LLMQ, "CSigningManager::%s -- failed to select quorum. id=%s, msgHash=%s\n", __func__, id.ToString(), msgHash.ToString());
         return false;
@@ -950,9 +955,13 @@ CQuorumCPtr CSigningManager::SelectQuorumForSigningFixed(Consensus::LLMQType llm
         h << llmqType;
         h << quorums[i]->qc.quorumHash;
         h << selectionHash;
+        LogPrintf("score -- %s\n", h.GetHash().ToString());
         scores.emplace_back(h.GetHash(), i);
     }
     std::sort(scores.begin(), scores.end());
+    for (size_t i = 0; i < scores.size(); i++) {
+        LogPrintf("sorted score -- %s\n", scores[i].ToString());
+    }
     return quorums[scores.front().second];
 }
 
