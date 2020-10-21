@@ -936,6 +936,26 @@ CQuorumCPtr CSigningManager::SelectQuorumForSigning(Consensus::LLMQType llmqType
     return quorums[scores.front().second];
 }
 
+CQuorumCPtr CSigningManager::SelectQuorumForSigningFixed(Consensus::LLMQType llmqType, int signHeight, const uint256& selectionHash)
+{
+    auto quorums = GetActiveQuorumSet(llmqType, signHeight);
+    if (quorums.empty()) {
+        return nullptr;
+    }
+
+    std::vector<std::pair<uint256, size_t>> scores;
+    scores.reserve(quorums.size());
+    for (size_t i = 0; i < quorums.size(); i++) {
+        CHashWriter h(SER_NETWORK, 0);
+        h << llmqType;
+        h << quorums[i]->qc.quorumHash;
+        h << selectionHash;
+        scores.emplace_back(h.GetHash(), i);
+    }
+    std::sort(scores.begin(), scores.end());
+    return quorums[scores.front().second];
+}
+
 bool CSigningManager::VerifyRecoveredSig(Consensus::LLMQType llmqType, int signedAtHeight, const uint256& id, const uint256& msgHash, const CBLSSignature& sig)
 {
     auto& llmqParams = Params().GetConsensus().llmqs.at(Params().GetConsensus().llmqTypeChainLocks);
