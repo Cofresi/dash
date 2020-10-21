@@ -960,7 +960,7 @@ CQuorumCPtr CSigningManager::SelectQuorumForSigningFixed(Consensus::LLMQType llm
     }
     std::sort(scores.begin(), scores.end());
     for (size_t i = 0; i < scores.size(); i++) {
-        LogPrintf("sorted score -- %s\n", scores[i].ToString());
+        LogPrintf("sorted score -- %s\n", scores[i].first.ToString());
     }
     return quorums[scores.front().second];
 }
