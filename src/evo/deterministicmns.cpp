@@ -271,21 +271,21 @@ std::vector<CDeterministicMNCPtr> CDeterministicMNList::CalculateQuorum(size_t m
         return a.first < b.first;
     });
 
-    LogPrintf("scores & mns sorted\n");
+    //LogPrintf("scores & mns sorted\n");
     // print all sorted scores and mns
-    for (size_t i = 0; i < scores.size(); i++) {
-        LogPrintf("score -- %s\n", scores[i].first.ToString());
-        LogPrintf("mn -- %s\n", scores[i].second->proTxHash.ToString());
-    }
+    //for (size_t i = 0; i < scores.size(); i++) {
+    //    LogPrintf("score -- %s\n", scores[i].first.ToString());
+    //    LogPrintf("mn -- %s\n", scores[i].second->proTxHash.ToString());
+    //}
 
-    LogPrintf("score hashes\n");
+    //LogPrintf("score hashes\n");
     // take top maxSize entries and return it
-    std::vector<CDeterministicMNCPtr> result;
-    result.resize(std::min(maxSize, scores.size()));
-    for (size_t i = 0; i < result.size(); i++) {
-        result[i] = std::move(scores[i].second);
-        LogPrintf("score -- %s\n", scores[i].first.ToString());
-    }
+    //std::vector<CDeterministicMNCPtr> result;
+    //result.resize(std::min(maxSize, scores.size()));
+    //for (size_t i = 0; i < result.size(); i++) {
+    //   result[i] = std::move(scores[i].second);
+    //   LogPrintf("score -- %s\n", scores[i].first.ToString());
+    //}
     return result;
 }
 

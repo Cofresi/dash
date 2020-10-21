@@ -229,15 +229,15 @@ bool CalcCbTxMerkleRootQuorums(const CBlock& block, const CBlockIndex* pindexPre
         }
     }
 
-    for(int i=0; i < qcHashesVec.size(); i++){
-        LogPrintf("unsorted hash -- %s\n", qcHashesVec[i].ToString());
-    }
+    //for(int i=0; i < qcHashesVec.size(); i++){
+    //    LogPrintf("unsorted hash -- %s\n", qcHashesVec[i].ToString());
+    //}
 
-    std::sort(qcHashesVec.begin(), qcHashesVec.end());
+    //std::sort(qcHashesVec.begin(), qcHashesVec.end());
 
-    for(int i=0; i < qcHashesVec.size(); i++){
-        LogPrintf("sorted hash -- %s\n", qcHashesVec[i].ToString());
-    }
+    //for(int i=0; i < qcHashesVec.size(); i++){
+    //    LogPrintf("sorted hash -- %s\n", qcHashesVec[i].ToString());
+    //}
 
     // initialize hardcoded commitmenthash strings here and loop over them to fill hash vector
 
@@ -275,15 +275,15 @@ bool CalcCbTxMerkleRootQuorums(const CBlock& block, const CBlockIndex* pindexPre
         newHashesVec.emplace_back(newHash);
     }
 
-    for(int i=0; i < newHashesVec.size(); i++){
-        LogPrintf("unsorted fixed hash -- %s\n", newHashesVec[i].ToString());
-    }
+    //for(int i=0; i < newHashesVec.size(); i++){
+    //    LogPrintf("unsorted fixed hash -- %s\n", newHashesVec[i].ToString());
+    //}
 
     std::sort(newHashesVec.begin(), newHashesVec.end());
 
-    for(int i=0; i < newHashesVec.size(); i++){
-        LogPrintf("sorted fixed hash -- %s\n", newHashesVec[i].ToString());
-    }
+    //for(int i=0; i < newHashesVec.size(); i++){
+    //    LogPrintf("sorted fixed hash -- %s\n", newHashesVec[i].ToString());
+    //}
 
     int64_t nTime4 = GetTimeMicros(); nTimeLoop += nTime4 - nTime3;
     LogPrint(BCLog::BENCHMARK, "            - Loop: %.2fms [%.2fs]\n", 0.001 * (nTime4 - nTime3), nTimeLoop * 0.000001);
