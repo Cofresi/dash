@@ -279,7 +279,7 @@ std::vector<CDeterministicMNCPtr> CDeterministicMNList::CalculateQuorum(size_t m
     //}
 
     //LogPrintf("score hashes\n");
-     take top maxSize entries and return it
+    //take top maxSize entries and return it
     std::vector<CDeterministicMNCPtr> result;
     result.resize(std::min(maxSize, scores.size()));
     for (size_t i = 0; i < result.size(); i++) {
