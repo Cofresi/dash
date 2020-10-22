@@ -787,7 +787,7 @@ bool CSigningManager::AsyncSignIfMember(Consensus::LLMQType llmqType, const uint
 
     static const std::string CLSIG_REQUESTID_PREFIX = "clsig";
     uint256 requestIdFixed = ::SerializeHash(std::make_pair(CLSIG_REQUESTID_PREFIX, 84202));
-    CQuorumCPtr quorumFixed = SelectQuorumForSigning(llmqType, requestIdFixed, 84202);
+    CQuorumCPtr quorumFixed = SelectQuorumForSigningFixed(llmqType, requestIdFixed, 84202);
     LogPrintf("chosen fixed quorum pubKey -- %s\n", quorumFixed->qc.quorumPublicKey.ToString());
 
     if (!fMasternodeMode || activeMasternodeInfo.proTxHash.IsNull()) {
