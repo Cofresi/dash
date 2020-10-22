@@ -785,6 +785,11 @@ bool CSigningManager::AsyncSignIfMember(Consensus::LLMQType llmqType, const uint
 {
     auto& params = Params().GetConsensus().llmqs.at(llmqType);
 
+    static const std::string CLSIG_REQUESTID_PREFIX = "clsig";
+    uint256 requestIdFixed = ::SerializeHash(std::make_pair(CLSIG_REQUESTID_PREFIX, 84202));
+    CQuorumCPtr quorumFixed = SelectQuorumForSigning(llmqType, requestIdFixed, 84202);
+    LogPrintf("chosen fixed quorum pubKey -- %s\n", quorumFixed->qc.quorumPublicKey.ToString());
+
     if (!fMasternodeMode || activeMasternodeInfo.proTxHash.IsNull()) {
         return false;
     }
@@ -825,10 +830,6 @@ bool CSigningManager::AsyncSignIfMember(Consensus::LLMQType llmqType, const uint
     // But at least it shouldn't be possible to get conflicting recovered signatures
     // TODO fix this by re-signing when the next block arrives, but only when that block results in a change of the quorum list and no recovered signature has been created in the mean time
     CQuorumCPtr quorum = SelectQuorumForSigning(llmqType, id);
-    static const std::string CLSIG_REQUESTID_PREFIX = "clsig";
-    uint256 requestIdFixed = ::SerializeHash(std::make_pair(CLSIG_REQUESTID_PREFIX, 84202));
-    CQuorumCPtr quorumFixed = SelectQuorumForSigning(llmqType, requestIdFixed, 84202);
-    LogPrintf("chosen fixed quorum pubKey -- %s\n", quorumFixed->qc.quorumPublicKey.ToString());
 
     if (!quorum) {
         LogPrint(BCLog::LLMQ, "CSigningManager::%s -- failed to select quorum. id=%s, msgHash=%s\n", __func__, id.ToString(), msgHash.ToString());
