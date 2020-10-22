@@ -956,7 +956,7 @@ CQuorumCPtr CSigningManager::SelectQuorumForSigningFixed(Consensus::LLMQType llm
     if (quorums.empty()) {
         return nullptr;
     }
-
+    LogPrintf("selectionHash -- %s\n", selectionHash.ToString());
     std::vector<std::pair<uint256, size_t>> scores;
     scores.reserve(quorums.size());
     for (size_t i = 0; i < quorums.size(); i++) {
