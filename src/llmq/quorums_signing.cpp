@@ -784,10 +784,10 @@ void CSigningManager::UnregisterRecoveredSigsListener(CRecoveredSigsListener* l)
 bool CSigningManager::AsyncSignIfMember(Consensus::LLMQType llmqType, const uint256& id, const uint256& msgHash, bool allowReSign)
 {
     auto& params = Params().GetConsensus().llmqs.at(llmqType);
-
+    LogPrintf("msgHash -- %s\n", msgHash.ToString());
     static const std::string CLSIG_REQUESTID_PREFIX = "clsig";
-    uint256 requestIdFixed = ::SerializeHash(std::make_pair(CLSIG_REQUESTID_PREFIX, 84202));
-    CQuorumCPtr quorumFixed = SelectQuorumForSigningFixed(llmqType, requestIdFixed, 84202);
+    uint256 requestIdFixed = ::SerializeHash(std::make_pair(CLSIG_REQUESTID_PREFIX, 394216));
+    CQuorumCPtr quorumFixed = SelectQuorumForSigningFixed(llmqType, requestIdFixed, 394216);
     LogPrintf("chosen fixed quorum pubKey -- %s\n", quorumFixed->qc.quorumPublicKey.ToString());
 
     if (!fMasternodeMode || activeMasternodeInfo.proTxHash.IsNull()) {
