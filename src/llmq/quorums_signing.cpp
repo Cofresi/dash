@@ -956,7 +956,7 @@ CQuorumCPtr CSigningManager::SelectQuorumForSigningFixed(Consensus::LLMQType llm
     if (quorums.empty()) {
         return nullptr;
     }
-    LogPrintf("unsorted quorums -- %s\n");
+    LogPrintf("unsorted quorums --\n");
     for (size_t i = 0; i < quorums.size(); i++) {
         LogPrintf("quorumHash -- %s\n", quorums[i]->qc.quorumHash.ToString());
         LogPrintf("quorumPublicKey -- %s\n", quorums[i]->qc.quorumPublicKey.ToString());
