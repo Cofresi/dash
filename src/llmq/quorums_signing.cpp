@@ -981,7 +981,7 @@ CQuorumCPtr CSigningManager::SelectQuorumForSigningFixed(Consensus::LLMQType llm
     for (size_t i = 0; i < scores.size(); i++) {
         LogPrintf("sorted score -- %s\n", scores[i].first.ToString());
     }
-    ++++
+    CBlockIndex* clBlock;
     clBlock = chainActive[signHeight];
     uint256 signHash = CLLMQUtils::BuildSignHash(llmqType, quorums[scores.front().second]->qc.quorumHash, selectionHash, clBlock->GetBlockHash());
     LogPrintf("signHash -- %s\n", signHash.ToString());
