@@ -390,9 +390,9 @@ bool CInstantSendManager::ProcessTx(const CTransaction& tx, bool allowReSigning,
     if (llmqType == Consensus::LLMQ_NONE) {
         return true;
     }
-    if (!fMasternodeMode) {
-        return true;
-    }
+    //if (!fMasternodeMode) {
+    //    return true;
+    //}
 
     // Ignore any InstantSend messages until blockchain is synced
     if (!masternodeSync.IsBlockchainSynced()) {
