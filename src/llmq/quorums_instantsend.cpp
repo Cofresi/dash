@@ -41,7 +41,7 @@ CInstantSendManager* quorumInstantSendManager;
 
 uint256 CInstantSendLock::GetRequestId() const
 {
-    LogPrintf("ISLOCK_REQUESTID_PREFIX -- %s\n", ISLOCK_REQUESTID_PREFIX.ToString());
+    LogPrintf("ISLOCK_REQUESTID_PREFIX -- %s\n", ISLOCK_REQUESTID_PREFIX);
     for (auto& in : inputs) {
             LogPrintf("input -- %s\n", in.ToString());
     }
