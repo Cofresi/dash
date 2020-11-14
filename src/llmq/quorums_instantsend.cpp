@@ -48,7 +48,6 @@ uint256 CInstantSendLock::GetRequestId() const
     CHashWriter hw(SER_GETHASH, 0);
     hw << ISLOCK_REQUESTID_PREFIX;
     hw << inputs;
-    LogPrintf("RequestId -- %s\n", hw.GetHash().ToString());
     return hw.GetHash();
 }
 
