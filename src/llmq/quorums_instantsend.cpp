@@ -806,6 +806,7 @@ std::unordered_set<uint256> CInstantSendManager::ProcessPendingInstantSendLocks(
         }
 
         auto id = islock.GetRequestId();
+        LogPrintf("GetRequestId -- %s\n", id.ToString());
 
         // no need to verify an ISLOCK if we already have verified the recovered sig that belongs to it
         if (quorumSigningManager->HasRecoveredSig(llmqType, id, islock.txid)) {
