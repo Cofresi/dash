@@ -41,9 +41,14 @@ CInstantSendManager* quorumInstantSendManager;
 
 uint256 CInstantSendLock::GetRequestId() const
 {
+    LogPrintf("ISLOCK_REQUESTID_PREFIX -- %s\n", ISLOCK_REQUESTID_PREFIX.ToString());
+    for (auto& in : inputs) {
+            LogPrintf("input -- %s\n", in.ToString());
+    }
     CHashWriter hw(SER_GETHASH, 0);
     hw << ISLOCK_REQUESTID_PREFIX;
     hw << inputs;
+    LogPrintf("RequestId -- %s\n", hw.GetHash().ToString());
     return hw.GetHash();
 }
 
@@ -621,6 +626,7 @@ void CInstantSendManager::TrySignInstantSendLock(const CTransaction& tx)
         islock.inputs.emplace_back(in.prevout);
     }
 
+    LogPrintf("txid -- %s\n", islock.txid.ToString());
     auto id = islock.GetRequestId();
 
     if (quorumSigningManager->HasRecoveredSigForId(llmqType, id)) {
