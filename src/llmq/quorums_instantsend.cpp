@@ -829,9 +829,13 @@ std::unordered_set<uint256> CInstantSendManager::ProcessPendingInstantSendLocks(
             CRecoveredSig recSig;
             recSig.llmqType = llmqType;
             recSig.quorumHash = quorum->qc.quorumHash;
+            LogPrintf("quorumHash -- %s\n", quorumHash.ToString());
             recSig.id = id;
+            LogPrintf("id -- %s\n", id.ToString());
             recSig.msgHash = islock.txid;
+            LogPrintf("msgHash -- %s\n", msgHash.ToString());
             recSig.sig = islock.sig;
+            LogPrintf("sig -- %s\n", sig.ToString());
             recSigs.emplace(std::piecewise_construct,
                     std::forward_as_tuple(hash),
                     std::forward_as_tuple(std::move(quorum), std::move(recSig)));
