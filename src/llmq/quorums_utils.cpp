@@ -36,10 +36,6 @@ uint256 CLLMQUtils::BuildCommitmentHash(Consensus::LLMQType llmqType, const uint
 
 uint256 CLLMQUtils::BuildSignHash(Consensus::LLMQType llmqType, const uint256& quorumHash, const uint256& id, const uint256& msgHash)
 {
-    LogPrintf("llmqType -- %i\n", unsigned(llmqType));
-    LogPrintf("quorumHash -- %s\n", quorumHash.ToString());
-    LogPrintf("id -- %s\n", id.ToString());
-    LogPrintf("msgHash -- %s\n", msgHash.ToString());
     CHashWriter h(SER_GETHASH, 0);
     h << llmqType;
     h << quorumHash;

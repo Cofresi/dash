@@ -956,15 +956,15 @@ CQuorumCPtr CSigningManager::SelectQuorumForSigningFixed(Consensus::LLMQType llm
     if (quorums.empty()) {
         return nullptr;
     }
-    LogPrintf("unsorted quorums --\n");
-    for (size_t i = 0; i < quorums.size(); i++) {
-        LogPrintf("quorumHash -- %s\n", quorums[i]->qc.quorumHash.ToString());
-        LogPrintf("quorumPublicKey -- %s\n", quorums[i]->qc.quorumPublicKey.ToString());
-        LogPrintf("quorumVvecHash -- %s\n", quorums[i]->qc.quorumVvecHash.ToString());
-        LogPrintf("quorumSig -- %s\n", quorums[i]->qc.quorumSig.ToString());
-        LogPrintf("membersSig -- %s\n", quorums[i]->qc.membersSig.ToString());
-    }
-    LogPrintf("selectionHash -- %s\n", selectionHash.ToString());
+    //LogPrintf("unsorted quorums --\n");
+    //for (size_t i = 0; i < quorums.size(); i++) {
+    //    LogPrintf("quorumHash -- %s\n", quorums[i]->qc.quorumHash.ToString());
+    //    LogPrintf("quorumPublicKey -- %s\n", quorums[i]->qc.quorumPublicKey.ToString());
+    //    LogPrintf("quorumVvecHash -- %s\n", quorums[i]->qc.quorumVvecHash.ToString());
+    //    LogPrintf("quorumSig -- %s\n", quorums[i]->qc.quorumSig.ToString());
+    //    LogPrintf("membersSig -- %s\n", quorums[i]->qc.membersSig.ToString());
+    //}
+    //LogPrintf("selectionHash -- %s\n", selectionHash.ToString());
     std::vector<std::pair<uint256, size_t>> scores;
     scores.reserve(quorums.size());
     for (size_t i = 0; i < quorums.size(); i++) {
@@ -974,17 +974,17 @@ CQuorumCPtr CSigningManager::SelectQuorumForSigningFixed(Consensus::LLMQType llm
         h << selectionHash;
         scores.emplace_back(h.GetHash(), i);
     }
-    for (size_t i = 0; i < scores.size(); i++) {
-        LogPrintf("unsorted score -- %s\n", scores[i].first.ToString());
-    }
+    //for (size_t i = 0; i < scores.size(); i++) {
+    //    LogPrintf("unsorted score -- %s\n", scores[i].first.ToString());
+    //}
     std::sort(scores.begin(), scores.end());
-    for (size_t i = 0; i < scores.size(); i++) {
-        LogPrintf("sorted score -- %s\n", scores[i].first.ToString());
-    }
+    //for (size_t i = 0; i < scores.size(); i++) {
+    //    LogPrintf("sorted score -- %s\n", scores[i].first.ToString());
+    //}
     CBlockIndex* clBlock;
     clBlock = chainActive[signHeight];
     uint256 signHash = CLLMQUtils::BuildSignHash(llmqType, quorums[scores.front().second]->qc.quorumHash, selectionHash, clBlock->GetBlockHash());
-    LogPrintf("signHash -- %s\n", signHash.ToString());
+    //LogPrintf("signHash -- %s\n", signHash.ToString());
     return quorums[scores.front().second];
 }
 
