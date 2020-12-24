@@ -100,9 +100,10 @@ UniValue BuildQuorumInfo(const llmq::CQuorumCPtr& quorum, bool includeMembers, b
             mo.push_back(Pair("valid", quorum->qc.validMembers[i]));
             if (quorum->qc.validMembers[i]) {
                 CBLSPublicKey pubKey = quorum->GetPubKeyShare(i);
-                if (pubKey.IsValid()) {
-                    mo.push_back(Pair("pubKeyShare", pubKey.ToString()));
-                }
+                mo.push_back(Pair("pubKeyShare", pubKey.ToString()));
+                //if (pubKey.IsValid()) {
+                //    mo.push_back(Pair("pubKeyShare", pubKey.ToString()));
+                //}
             }
             membersArr.push_back(mo);
         }
@@ -111,7 +112,7 @@ UniValue BuildQuorumInfo(const llmq::CQuorumCPtr& quorum, bool includeMembers, b
     }
     ret.push_back(Pair("quorumPublicKey", quorum->qc.quorumPublicKey.ToString()));
     CBLSSecretKey skShare = quorum->GetSkShare();
-    if (includeSkShare) {
+    if (includeSkShare && skShare.IsValid()) {
         ret.push_back(Pair("secretKeyShare", skShare.ToString()));
     }
     return ret;
